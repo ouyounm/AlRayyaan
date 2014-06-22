@@ -1,7 +1,7 @@
 class Calendar < Struct.new(:view, :date, :callback)
 
     HEADER = %w[Su M Tu W Th F Sa]
-    START_DAY = :sunday
+    START_DAY = :thursday
 
     delegate :content_tag, to: :view
 
@@ -37,8 +37,11 @@ class Calendar < Struct.new(:view, :date, :callback)
     end
 
     def weeks
+      date = "June 29, 2014".to_date
       first = date.beginning_of_month.beginning_of_week(START_DAY)
+      # first = Time.zone.parse("Jun 29, 2014").to_date
       last = date.end_of_month.end_of_week(START_DAY)
+      # last = Time.zone.parse("Jul 29, 2014").to_date
       (first..last).to_a.in_groups_of(7)
     end
 end
